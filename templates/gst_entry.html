@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<form action="" method="post" name="invoice_edit">
+
+{{ form.csrf_token}}
+
+<table class="table is-fullwidth">
+
+    <tr>
+
+        <th>{{ form.vendor.label }}</th><td>{{form.vendor}}</td></tr>
+    <th>{{ form.gst_number.label }}</th><td>{{form.gst_number}}</td></tr>
+<th>{{ form.gst_invoice.label }}</th><td>{{form.gst_invoice}}</td></tr>
+        <th>{{ form.gst_invoice_date.label }}</th><td>{{form.gst_invoice_date}}</td></tr>
+    <th>{{ form.gst_amount.label }}</th><td>{{form.gst_amount}}</td></tr>
+<th>{{ form.invoice_amount.label }}</th><td>{{form.invoice_amount}}</td></tr>
+
+</table>
+<div class="field is-grouped">
+        <button class="button is-primary is-big">Save</button>
+    </div>
+
+</form>
+{% endblock content %}
