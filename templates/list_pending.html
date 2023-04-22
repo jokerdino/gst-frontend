@@ -8,6 +8,7 @@
 <table class= "table is-striped" id="gst_table"> 
     <thead>
         <tr>
+            <th>Regional Code</th>
             <th>Office Code</th>
             <th>Vendor name</th>
             <th>GST Number</th>
@@ -21,13 +22,14 @@
     <tbody>                        
     {% for entry in entries %}
     <tr>                     
+        <td>{{ entry.regional_code }}</td>
         <td>{{ entry.office_code }}</td>
-        <td>{{entry.vendor }} </td>
-        <td>{{ entry.supplier_gst_number }}</td>
-        <td>{{ entry.gst_invoice }}</td>
-        <td>{{ entry.gst_date }}</td>
-        <td>{{ entry.invoice_value }}</td>
-        <td>{{ entry.gst_value }}</td>
+        <td>{{entry.supplier_name }} </td>
+        <td>{{ entry.supplier_gstin }}</td>
+        <td>{{ entry.doc_no }}</td>
+        <td>{{ entry.doc_date }}</td>
+        <td>{{ entry.taxable_value }}</td>
+        <td>{{ entry.total_tax }}</td>
         <td> <a href={{url_for('edit_entries',invoice_key=entry.id)}} >Edit </a></td>
     </tr>
                                    {% endfor %}
@@ -45,8 +47,9 @@
                                              {   extend: 'copyHtml5', className: 'is-danger is-rounded'},
                                               { extend: 'csvHtml5', className: 'is-info is-rounded'},
                                                { extend: 'excelHtml5', className: 'is-primary is-rounded'}],
-                    order: [[1,'desc']],
+                    order: [[6,'desc']],
                     pagingType: 'full_numbers',
+                    pageLength: 50,
                     lengthMenu: [
                             [10,25,50,100,-1],
                             [10,25,50,100,'All'],]
