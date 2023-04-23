@@ -25,7 +25,14 @@
                             <div class="buttons">
                                
                                 {% if current_user.is_authenticated %}
-                                <a class="button is-link" href="{{ url_for('pending_gst_corrections') }}">Add payment</a>
+                                <a class="button is-link" href="{{ url_for('invoices_pending') }}">Pending GST corrections</a>
+                                <a class="button is-link" href="{{ url_for('invoices_completed') }}">Completed GST corrections</a>
+                                
+                                {% if current_user.admin %}
+                                <a class="button is-link" href="{{ url_for('upload')}}"> Upload</a>
+                                <button class="button" disabled>Download</button>
+                                <button class="button" disabled>Statistics</button>
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -40,7 +47,7 @@
                                 <a class="button is-link" href="{{ url_for('login_page') }}"> Login</a>
                                 {% else %}
                                
-                                    {{ current_user.office_code }}
+                                <button class="button" disabled>  {{ current_user.username }} </button>
                                 <a class="button is-link" href="{{ url_for('logout_page') }}"> Log out</a>
                                 {% endif %}
                             </div>

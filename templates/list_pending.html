@@ -2,9 +2,6 @@
 
 {% block content %}
 
-
-{% if entries %}
-
 <table class= "table is-striped" id="gst_table"> 
     <thead>
         <tr>
@@ -16,43 +13,42 @@
             <th>GST invoice date</th>
             <th>Invoice value amount</th>
             <th>GST Amount</th>
+            <th>Voucher number</th>
             <th>Edit</th>
         </tr>
     </thead>
-    <tbody>                        
-    {% for entry in entries %}
-    <tr>                     
-        <td>{{ entry.regional_code }}</td>
-        <td>{{ entry.office_code }}</td>
-        <td>{{entry.supplier_name }} </td>
-        <td>{{ entry.supplier_gstin }}</td>
-        <td>{{ entry.doc_no }}</td>
-        <td>{{ entry.doc_date }}</td>
-        <td>{{ entry.taxable_value }}</td>
-        <td>{{ entry.total_tax }}</td>
-        <td> <a href={{url_for('edit_entries',invoice_key=entry.id)}} >Edit </a></td>
-    </tr>
-                                   {% endfor %}
-                                   
-                                   {% endif %}
-                                  
+    <tbody>
     </tbody>
-                                    </table>
+ </table>
+
 {% block scripts %}
 <script>
     $(document).ready(function () {
             $('#gst_table').DataTable({
-                    dom: 'lfBrtip',
-                                buttons: [
-                                             {   extend: 'copyHtml5', className: 'is-danger is-rounded'},
-                                              { extend: 'csvHtml5', className: 'is-info is-rounded'},
-                                               { extend: 'excelHtml5', className: 'is-primary is-rounded'}],
-                    order: [[6,'desc']],
-                    pagingType: 'full_numbers',
-                    pageLength: 50,
-                    lengthMenu: [
-                            [10,25,50,100,-1],
-                            [10,25,50,100,'All'],]
+
+                    ajax: '{{ source }}',
+                    serverSide: true,
+                    stateSave: true,
+                    processing: true,
+                    columns: [
+                    {data: 'regional_code'},
+                    {data: 'office_code'},
+                    {data: 'supplier_name'},
+                    {data: 'supplier_gstin'},
+                    {data: 'doc_no'},
+                    {data: 'doc_date'},
+                    {data: 'taxable_value',
+                        render: $.fn.dataTable.render.number(',','.',0,'')},
+                    {data: 'total_tax',
+                            render: $.fn.dataTable.render.number(',','.',0,'')},
+                    {data: 'keywords'},
+                    {data: 'id',
+                     render: function (data, type, row, meta) {
+                            return '<a href="' + data + '/edit">Edit</a>';
+                                }
+                   }
+                  ],
+                    order: [[7, 'desc']]
                 });
         });
 </script>

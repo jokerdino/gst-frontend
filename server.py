@@ -22,14 +22,18 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://barneedhar:barneedhar@localhost:5432/flask_db"
     #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///gstinvoices.sqlite"
 
-    app.add_url_rule("/user/login", view_func=gst_views.login_page, methods=["GET", "POST"])
+    app.add_url_rule("/", view_func=gst_views.login_page, methods=["GET", "POST"])
+    app.add_url_rule("/home", view_func=gst_views.home_page, methods=["GET", "POST"])
     app.add_url_rule("/user/logout", view_func=gst_views.logout_page)
-
-    app.add_url_rule("/", view_func=gst_views.pending_gst_corrections)
+    app.add_url_rule("/api/data/pending", view_func=gst_views.data_pending)
+    app.add_url_rule("/api/data/completed", view_func=gst_views.data_completed)
+    # app.add_url_rule("/", view_func=gst_views.pending_gst_corrections)
+    app.add_url_rule("/pending", view_func=gst_views.invoices_pending)
+    app.add_url_rule("/completed", view_func=gst_views.invoices_completed)
     app.add_url_rule("/<int:invoice_key>/edit", view_func=gst_views.edit_entries, methods=["GET", "POST"])
-
+    app.add_url_rule("/upload", view_func=gst_views.upload, methods=["POST", "GET"])
     lm.init_app(app)
-    lm.login_view = "login_page"
+    #lm.login_view = "login_page"
 
     db.init_app(app)
     migrate.init_app(app,db)

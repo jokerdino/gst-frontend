@@ -12,13 +12,13 @@ convention = {
 
 metadata = MetaData(naming_convention=convention)
 
-
 db = SQLAlchemy(metadata=metadata)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    office_code = db.Column(db.String)
-    regional_code = db.Column(db.String, unique=True)
+    username = db.Column(db.String)
+    office_code = db.Column(db.Integer)
+    regional_code = db.Column(db.Integer, unique=True)
     password = db.Column(db.String)
     admin = db.Column(db.Boolean)
 #    office = db.relationship("Office_code", backref=db.backref("office", uselist=False))
@@ -39,7 +39,7 @@ class Entries(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     office_code = db.Column(db.Integer)
-    regional_code = db.Column(db.String)#, db.ForeignKey("user.regional_code"))
+    regional_code = db.Column(db.Integer)#, db.ForeignKey("user.regional_code"))
 
    # user = db.relationship("User", backref=db.backref("user", uselist=False))
 
@@ -64,8 +64,8 @@ class Entries(db.Model):
     original_doc_date= db.Column(db.String)
     place_of_supply= db.Column(db.String)
     rcm= db.Column(db.String)
-    taxable_value= db.Column(db.String)
-    total_tax= db.Column(db.String)
+    taxable_value= db.Column(db.Integer)
+    total_tax= db.Column(db.Integer)
     doc_value= db.Column(db.String)
     gst_rate= db.Column(db.String)
     item_reference_no= db.Column(db.String)
@@ -93,3 +93,21 @@ class Entries(db.Model):
     reconciliation_notes= db.Column(db.String)
     group_id = db.Column(db.String)
     status = db.Column(db.String)
+
+    def to_dict(self):
+        return {
+            'regional_code': self.regional_code,
+            'office_code': self.office_code,
+            'supplier_name': self.supplier_name,
+            'supplier_gstin': self.supplier_gstin,
+            'doc_no': self.doc_no,
+            'doc_date': self.doc_date,
+            'taxable_value': self.taxable_value,
+            'total_tax': self.total_tax,
+            'keywords': self.keywords,
+            'id': self.id
+
+            # voucher number
+            # regional code, office code, vendor name, gst number,
+            # gst invoice number, gst invoice date, gst invoice amount, gst tax amount
+        }
