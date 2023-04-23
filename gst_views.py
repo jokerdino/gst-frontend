@@ -15,12 +15,13 @@ def home_page():
 
 @login_required
 def invoices_pending():
-    return render_template('list_pending.html', data=data_pending(), source="/api/data/pending")
+    return render_template('list_pending.html', source="/api/data/pending")
 
 @login_required
 def invoices_completed():
-    return render_template('list_pending.html', data=data_completed(), source="/api/data/completed")
+    return render_template('list_pending.html', source="/api/data/completed")
 
+@login_required
 def upload():
     if request.method == "POST":
         upload_file = request.files.get("file")
@@ -29,7 +30,6 @@ def upload():
         upload_details(upload_file)
         flash("GST invoice data has been processed and added to database.")
     return render_template("upload.html")
-
 
 def data_pending():
     return data("To be updated")
@@ -89,9 +89,6 @@ def data(status):
             'recordsTotal': entries_count,
             'draw': request.args.get('draw', type=int),}
 
-
-def upload_page():
-    ...
 
 def download_page():
     ...
@@ -153,7 +150,6 @@ def login_page():
         else:
             flash("Invalid credentials.")
     return render_template("login.html", form=form)
-
 
 def logout_page():
     logout_user()
