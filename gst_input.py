@@ -2,9 +2,9 @@ import psycopg2
 import pandas as pd
 from sqlalchemy import create_engine
 
-def upload_details(file):
+async def upload_details(file):
     #gst_input = pd.read_excel("Input Reco Raj 2022-23.xlsx")#, nrows=5000) #, type_backend='pyarrow')
-    gst_input = pd.read_excel(file)#, nrows=20000)
+    gst_input = pd.read_excel(file)#, nrows=9000)
     gst_input = gst_input.loc[:, ~gst_input.columns.str.contains('^Unnamed')]
     gst_input.columns = gst_input.columns.str.replace(' ', '_').str.lower().str.replace('%', 'percent')
     column_headers = list(gst_input.columns)

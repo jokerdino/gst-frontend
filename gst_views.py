@@ -22,14 +22,14 @@ def invoices_completed():
     return render_template('list_pending.html', source="/api/data/completed")
 
 @login_required
-def upload():
+async def upload():
     if request.method == "POST":
         upload_file = request.files.get("file")
 #        convert_input(upload_file)
        # flash("GST invoice data has been received. Processing the input file..")
-        upload_details(upload_file)
+        await upload_details(upload_file)
         flash("GST invoice data has been processed and added to database.")
-    return render_template("upload.html")
+    return render_template("upload_new.html")
 
 def data_pending():
     return data("To be updated")
@@ -128,7 +128,7 @@ def edit_entries(invoice_key):
 
 def login_page():
     if current_user.is_authenticated:
-        return redirect(url_for("pending_gst_corrections"))
+        return redirect(url_for("home_page"))
     form = LoginForm()
 
     from server import db

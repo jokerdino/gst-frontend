@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+    {% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
+    <form action="{{ url_for('upload') }}" id="my-great-dropzone" class="dropzone">
+    </form>
+
+    {% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+
+<script>
+  Dropzone.options.myGreatDropzone = { // camelized version of the `id`
+    paramName: "file", // The name that will be used to transfer the file
+    maxFilesize: 100, // MB
+    timeout: 18000000,
+    maxFiles: 12,
+    parallelUploads: 12,
+    acceptedFiles: '.xlsx'
+  };
+</script>
+    {% endblock script %}
+    {% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% endblock content %}
+  </body>
+</html>
