@@ -111,3 +111,29 @@ class Entries(db.Model):
             # regional code, office code, vendor name, gst number,
             # gst invoice number, gst invoice date, gst invoice amount, gst tax amount
         }
+
+
+class Cheques(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    office_code = db.Column(db.Integer)
+    regional_code = db.Column(db.Integer)
+
+    cheque_number = db.Column(db.String)
+    cheque_date = db.Column(db.String)
+    cheque_amount = db.Column(db.String)
+    cheque_drawers_name = db.Column(db.String)
+    file_upload = db.Column(db.String)
+    cheque_status = db.Column(db.String)
+    cheque_remarks = db.Column(db.String)
+    def to_dict(self):
+        return {
+            'office_code': self.office_code,
+            'regional_code': self.regional_code,
+            'cheque_number': self.cheque_number,
+            'cheque_date': self.cheque_date,
+            'cheque_amount': self.cheque_amount,
+            'cheque_drawers_name': self.cheque_drawers_name,
+            'id': self.id
+
+    }

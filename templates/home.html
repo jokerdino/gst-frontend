@@ -59,21 +59,37 @@
     </article>
     </a>
   </div>
+
+    <div class="tile is-parent">
+     <a href="{{ url_for('list_unreconciled', source="Unreconciled") }}">
+    <article class="tile is-child notification is-warning">
+      <div class="content">
+        <p class="title">Pending cheques to be agreed</p>
+        <p class="subtitle">Accept cheque entries for passing of credit from head office.</p>
+        <div class="content">
+
+        </div>
+      </div>
+    </article>
+    </a>
+  </div>
+  
+  <!--
     <div class="tile is-parent">
         {% if current_user.admin %}
     <a href="{{ url_for('upload')}}">
     <article class="tile is-child notification is-warning">
       <div class="content">
         <p class="title">Upload</p>
-        <p class="subtitle">Admin: Option to upload more invoices for updation</p>
+        <p class="subtitle">GST Admin: Option to upload more invoices for updation</p>
         <div class="content">
 
         </div>
         {% endif %}
       </div>
     </article>
-    </a>
-  </div>
+    </a></div>
+    --!> 
   <!--
   <div class="tile is-parent">
     <article class="tile is-child notification is-info">

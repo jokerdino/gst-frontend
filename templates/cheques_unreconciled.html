@@ -1,0 +1,69 @@
+{% extends "cheque_layout.html" %}
+
+{% block content %}
+<div class="mb-5">
+<button class="button is-success" type="button" onclick="select_all()">Select All</button>
+<button class="button is-warning" type="button" onclick="deselect_all()">Deselect All</button>
+</div>
+<form action="" method="post" name="cheque_list">
+<table class= "table is-striped" id="gst_table"> 
+    <thead>
+        <tr>
+            <th>Select </th>
+            <th>Regional Code</th>
+            <th>Office Code</th>
+            <th>Cheque number</th>
+            <th>Cheque date</th>
+            <th>Cheque amount</th>
+            <th>Cheque drawers name </th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+    <div class="buttons">
+        <button class="button is-info is-big">Cheque entry accepted</button>
+</form>
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+            $('#gst_table').DataTable({
+
+                    ajax: '{{ source }}',
+                    serverSide: true,
+                    stateSave: true,
+                    processing: true,
+                    columns: [
+                    {data: 'id',
+                     render: function (data, type, row, meta) { 
+                    return '<input type="checkbox" name="cheque_keys" value="'+data+'"/>';
+                         }},
+                    {data: 'regional_code'},
+                    {data: 'office_code'},
+                    {data: 'cheque_number'},
+                    {data: 'cheque_date'},
+                    {data: 'cheque_amount'},
+                    {data: 'cheque_drawers_name'},
+    
+                    {data: 'id',
+                     render: function (data, type, row, meta) {
+                            return '<a href="' + data + '/edit">Edit</a>';
+                                }
+                   }
+                  ],
+                    order: [[1, 'desc']]
+                });
+        });
+        function select_all()  {
+            $('input[type=checkbox]').prop('checked', true);
+        }
+
+    function deselect_all()  {
+            $('input[type=checkbox]').prop('checked', false);
+        }
+    </script>
+
+{% endblock scripts %}
+
+{% endblock content %} 

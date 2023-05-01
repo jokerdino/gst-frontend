@@ -26,8 +26,10 @@
                                
                                 {% if current_user.is_authenticated %}
                                 <a class="button is-link" href="{{ url_for('home_page') }}">Home</a>
-                                <a class="button is-link" href="{{ url_for('invoices_pending') }}">Pending GST corrections</a>
-                                <a class="button is-link" href="{{ url_for('invoices_completed') }}">Completed GST corrections</a>
+                                <a class="button is-link" href="{{ url_for('list_unreconciled', source="Unreconciled") }}">Pending Cheque entries</a>
+                                <a class="button is-link" href="{{ url_for('list_unreconciled', source="office_mismatch") }}">Office mismatch</a>
+                                <a class="button is-link" href="{{ url_for('list_unreconciled', source="amount_mismatch") }}">Amount mismatch</a>
+                                <a class="button is-link" href="{{ url_for('list_unreconciled', source="others") }}">Others</a>
                                 
                                 {% if current_user.admin %}
                                 <a class="button is-link" href="{{ url_for('upload')}}"> Upload</a>

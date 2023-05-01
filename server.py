@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from waitress import serve
 
 from model import User, db
-import gst_views
+import gst_views, cheque_views
 
 migrate = Migrate()
 lm = LoginManager()
@@ -28,10 +28,20 @@ def create_app():
     app.add_url_rule("/api/data/pending", view_func=gst_views.data_pending)
     app.add_url_rule("/api/data/completed", view_func=gst_views.data_completed)
     # app.add_url_rule("/", view_func=gst_views.pending_gst_corrections)
-    app.add_url_rule("/pending", view_func=gst_views.invoices_pending)
-    app.add_url_rule("/completed", view_func=gst_views.invoices_completed)
-    app.add_url_rule("/<int:invoice_key>/edit", view_func=gst_views.edit_entries, methods=["GET", "POST"])
-    app.add_url_rule("/upload", view_func=gst_views.upload, methods=["POST", "GET"])
+    app.add_url_rule("/gst/pending", view_func=gst_views.invoices_pending)
+    app.add_url_rule("/gst/completed", view_func=gst_views.invoices_completed)
+    app.add_url_rule("/gst/<int:invoice_key>/edit", view_func=gst_views.edit_entries, methods=["GET", "POST"])
+    app.add_url_rule("/gst/upload", view_func=gst_views.upload, methods=["POST", "GET"])
+
+    # cheque views
+
+    app.add_url_rule("/cheque/<string:source>", view_func=cheque_views.list_unreconciled, methods=['GET', 'POST'])
+    # app.add_url_rule("/cheque/Agreed", view_func=cheque_views.list_agreed, methods=['GET', 'POST'])
+    #app.add_url_rule("/api/cheque_data/pending", view_func=cheque_views.cheques_unreconciled, methods=['GET', 'POST'])
+    #app.add_url_rule("/api/cheque_data/agreed", view_func=cheque_views.cheques_agreed, methods=['GET', 'POST'])
+    app.add_url_rule("/api/cheque_data/<string:status>", view_func=cheque_views.cheque_data, methods=['GET', 'POST'])
+    app.add_url_rule("/cheque/<int:cheque_key>/edit", view_func=cheque_views.edit_cheque_entries, methods=["GET","POST"])
+
     lm.init_app(app)
     #lm.login_view = "login_page"
 
