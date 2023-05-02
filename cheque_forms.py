@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Optional
 class ChequeEditform(FlaskForm):
     ...
 
-    cheque_status_reasons = [("agreed","Agreed"), ("office_mismatch","Does not belong to our office"),("amount_mismatch", "Amount mismatch"),("others","Others")]
+    cheque_status_reasons = [("Pending", "Pending"),("agreed","Agreed"), ("office_mismatch","Does not belong to our office"),("amount_mismatch", "Amount mismatch"),("others","Others")]
     cheque_status = RadioField("Agreed or not", choices=cheque_status_reasons, validators=[DataRequired()])
     cheque_remarks = StringField("Enter remarks:", validators=[Optional()])
     confirm_update = BooleanField("Please confirm that the changes have been made", validators=[DataRequired()])

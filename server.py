@@ -42,6 +42,9 @@ def create_app():
     app.add_url_rule("/api/cheque_data/<string:status>", view_func=cheque_views.cheque_data, methods=['GET', 'POST'])
     app.add_url_rule("/cheque/<int:cheque_key>/edit", view_func=cheque_views.edit_cheque_entries, methods=["GET","POST"])
 
+    app.add_url_rule("/cheque/upload", view_func=cheque_views.cheque_upload, methods=["POST", "GET"])
+    app.add_url_rule("/cheque/download", view_func=cheque_views.download_format, methods=["POST", "GET"])
+
     lm.init_app(app)
     #lm.login_view = "login_page"
 

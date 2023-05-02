@@ -1,8 +1,9 @@
-{% extends "layout.html" %}
+{% extends "cheque_layout.html" %}
     {% block content %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
-    <form action="{{ url_for('upload') }}" id="my-great-dropzone" class="dropzone">
-   </form>
+    
+    <form action="{{ url_for('cheque_upload') }}" id="my-great-dropzone" class="dropzone">
+    </form>
 
     {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
@@ -25,6 +26,7 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
+     <a href="{{ url_for('download_format') }}">
+   Click here to download template for uploading cheque MIS 
+     </a>
 {% endblock content %}
-  </body>
-</html>
